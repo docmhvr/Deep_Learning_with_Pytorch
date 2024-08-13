@@ -54,6 +54,8 @@ The primary objective of this project is to build and evaluate linear regression
   
 - **Model Performance:**
   - Plots are included to show how well each model fits the data.
+ 
+ ![Model Evaluation](3.png)
 
 ## Requirements
 
