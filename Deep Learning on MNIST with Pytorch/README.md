@@ -78,6 +78,26 @@ We are using a batch size of 32. When you are using a GPU, the maximum batch siz
 
 Notice in the code below, we shuffle the training data. This is because the original dataset may have some ordering (e.g. all examples of 0s come first, and then all 1s etc.). This kind of correlation is bad for the training process because the loss calculated over a mini-batch is used to update the weights or network parameters. On the other hand, it makes no sense to shuffle the validation set because validation loss is calculated over the entire validation set.  
 
+## 3 Model Architecture
+
+### 3.1 Single Layer, Multiple Output Architecture
+
+The network architecture shown below is similar to the previous architecture for binary classification but with some important differences. The key differences are summarized below:
+
+1. The image input data is pre-processed in a way that we have not yet discussed (more on this below).
+2. We now have 10 neurons to represent the ten different classes (digits: 0 to 9), instead of a single neuron as with binary classification.
+3. The activation function is a **softmax** activation rather than a sigmoid activation.
+4. The loss function is now **sparse categorical cross entropy**.
+
+Although the diagram looks quite a bit different from previous (single neuron) architectures, it is fundamentally very similar in terms of the processing that takes place during training and prediction.
 
 
+<img src='https://opencv.org/wp-content/uploads/2023/05/c3_week3_MNIST_network.png' width=900 align='center'><br/>
 
+### 3.2 Fully Connected (Dense) Layers
+
+The neural network architectures we have covered thus far in the course have used "fully connected" layers which are also referred to as "dense" or "linear" layers. This is very common, but as the number of inputs and neurons in each layer becomes larger, the number of trainable parameters grows exponentially. The figure below shows two examples of fully connected layers. When depicting neural network architectures with fully connected layers, the connections are typically omitted with the understanding that 'dense' or 'fully connected' is assumed.
+
+<img src='https://learnopencv.com/wp-content/uploads/2022/01/c4_02_dense_layers.png' width=700 align='center'>
+
+As we will see later in the course, when working with images, the number of parameters can become exceedingly large as the number of neurons and the number of layers in the network is increased. For example, it is not uncommon for state-of-the-art networks to contain millions of parameters. Larger networks hold the potential to exceed the performance of smaller networks, but that comes at the cost of much longer training times. In order to mitigate these issues, we will see that the data in the network is sometimes down-sampled at intermediate layers, which reduces the number of parameters. One approach that is used to down-sample data in CNNs is called 'pooling.' Another approach called "dropout", is a stochastic regularization technique that is used to reduce overfitting by randomly dropping a percentage of neurons from the network (along with their associated connections) which also reduces the number of trainable parameters in the network. We will cover these topics in more detail later in the course.
