@@ -101,3 +101,18 @@ The neural network architectures we have covered thus far in the course have use
 <img src='https://learnopencv.com/wp-content/uploads/2022/01/c4_02_dense_layers.png' width=700 align='center'>
 
 As we will see later in the course, when working with images, the number of parameters can become exceedingly large as the number of neurons and the number of layers in the network is increased. For example, it is not uncommon for state-of-the-art networks to contain millions of parameters. Larger networks hold the potential to exceed the performance of smaller networks, but that comes at the cost of much longer training times. In order to mitigate these issues, we will see that the data in the network is sometimes down-sampled at intermediate layers, which reduces the number of parameters. One approach that is used to down-sample data in CNNs is called 'pooling.' Another approach called "dropout", is a stochastic regularization technique that is used to reduce overfitting by randomly dropping a percentage of neurons from the network (along with their associated connections) which also reduces the number of trainable parameters in the network. We will cover these topics in more detail later in the course.
+
+## 4 Training
+
+### 4.1 Define Train Step
+
+This is the Training routine which does the following:
+
+1. It takes batches of data from train dataloader
+2. The training data is passed through the network
+3. Compute the Cross Entropy loss using the predicted output and the training labels
+4. To avoid gradient accumulation, remove previous gradients using optimizer.zero_grad
+5. Compute Gradients using the backward function
+6. Update the weights using the optimizer.step function and repeat until all the data is passed through the network.
+
+**Note** : During training we will use the [nn.CrossEntropyLoss](https://pytorch.org/docs/stable/generated/torch.nn.CrossEntropyLoss.html#torch.nn.CrossEntropyLoss) that combines `nn.LogSoftMax` (Log of SoftMax) and `nn.NLLLoss` (Negative Log Likelihood Loss). This also means that when we do inference, we have to use `softmax` on the raw output to convert it to probabilities.
