@@ -126,3 +126,6 @@ Now we will try to improve the results by implementing a Multi Layer Perceptron 
 We define the `MLP` class. It has 2 hidden layers with 256 units. Also note that the input layer has `28x28` nodes which is the size of the flattened data. Given below is the schematic diagram of the network.
 
 <img src="https://www.learnopencv.com/wp-content/uploads/2017/10/mlp-mnist-schematic.jpg" width=700>
+
+## Result Confusion Matrix
+![Demo](download.png)
