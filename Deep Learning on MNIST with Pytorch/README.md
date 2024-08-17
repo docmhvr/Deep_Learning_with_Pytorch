@@ -116,3 +116,13 @@ This is the Training routine which does the following:
 6. Update the weights using the optimizer.step function and repeat until all the data is passed through the network.
 
 **Note** : During training we will use the [nn.CrossEntropyLoss](https://pytorch.org/docs/stable/generated/torch.nn.CrossEntropyLoss.html#torch.nn.CrossEntropyLoss) that combines `nn.LogSoftMax` (Log of SoftMax) and `nn.NLLLoss` (Negative Log Likelihood Loss). This also means that when we do inference, we have to use `softmax` on the raw output to convert it to probabilities.
+
+### For Results of Single Perceptron refer Notebook
+
+## Multi Layer Perceptron
+
+Now we will try to improve the results by implementing a Multi Layer Perceptron (MLP).
+
+We define the `MLP` class. It has 2 hidden layers with 256 units. Also note that the input layer has `28x28` nodes which is the size of the flattened data. Given below is the schematic diagram of the network.
+
+<img src="https://www.learnopencv.com/wp-content/uploads/2017/10/mlp-mnist-schematic.jpg" width=700>
