@@ -44,3 +44,40 @@ $$ J(y') = -\sum_{i=1}^{k} 1\{y=i\}\ log\ [ y'_i ]$$
 
 
 In the equation above, we make use of the indicator function $1\{\}$ which evaluates to 1 if the condition in the brackets is true and to 0 otherwise. So, the total loss is a summation across each of the output neurons. An easy way to get an intuition for why this makes sense is to consider two cases. First, consider the case where the neuron with the highest output is associated with the ground truth label for the input $x$. In that case, the total loss would be the negative log of a high probability number. For example, if the probability was 0.9 then the total loss for this case would be $-log(0.9) = .105$. Now consider a case where the correct class had a predicted output probability of .01. In that case, the total loss would be the negative log of a low probability number, $-log(0.01) = 4.61$.
+
+## 2 Data Loading and Preparation
+
+As discussed earlier, we will use the MNIST data for our experiment. It contains `60000` training and `10000` testing grayscale `28x28` images from `10` classes:
+
+The MNIST dataset already comes bundled with PyTorch. PyTorch provides easy access to some standard datasets using `torch.dataset`. You can access all the available datasets in Torchvision for image classification [here](https://pytorch.org/vision/main/datasets.html#image-classification).
+
+### 2.1 Download and Normalize Data
+
+1. We load the training and validation data separately.
+2. We specify that the data should be downloaded if it is not present on the system.
+3. The data is transformed to PyTorch tensors in the range `[0, 1]` and then **normalized** with the appropriate mean and standard deviation.
+
+In other words, following equation is used for Normalization across each image channel, $C$:
+
+$$ \hat x_C = \frac{x_C - \mu_C}{\sigma_C}$$
+
+For MNIST, we only have have a single channel. Its **mean** and **standard deviation** have already been computed, and turns out to be `(.1307,)` and `(.3081,)` respectively.
+
+#### DataLoader
+
+PyTorch provides a very useful class called `DataLoader` that helps feed the data during the training process. It is primarily used for two purposes.
+
+1. Load a mini-batch of data from a dataset.
+2. Shuffle the data (if required).
+
+**What batch size to use?**
+
+We are using a batch size of 32. When you are using a GPU, the maximum batch size is dictated by the memory on the GPU. However, even without the GPU memory limitation, batch size of 32 or smaller is preferred in many applications. See this [funny tweet](https://twitter.com/ylecun/status/989610208497360896?lang=en).
+
+**Why shuffle training set?**
+
+Notice in the code below, we shuffle the training data. This is because the original dataset may have some ordering (e.g. all examples of 0s come first, and then all 1s etc.). This kind of correlation is bad for the training process because the loss calculated over a mini-batch is used to update the weights or network parameters. On the other hand, it makes no sense to shuffle the validation set because validation loss is calculated over the entire validation set.  
+
+
+
+
