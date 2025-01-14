@@ -1,8 +1,7 @@
 Boiler Plate Code for Deep Learning with Pytorch
-"""
-def system_config(SEED_VALUE=42, package_list=None):
-    """
-    Configures the system environment for PyTorch-based operations.
+
+    def system_config(SEED_VALUE=42, package_list=None):
+        Configures the system environment for PyTorch-based operations.
 
     Args:
         SEED_VALUE (int): Seed value for random number generation. Default is 42.
@@ -75,4 +74,3 @@ def system_config(SEED_VALUE=42, package_list=None):
         torch.use_deterministic_algorithms(True)
 
     return str(DEVICE), GPU_AVAILABLE
-"""
